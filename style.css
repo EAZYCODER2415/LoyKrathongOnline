@@ -1,6 +1,19 @@
-body {
-    background-image: url('');
+body {}
+
+.river-background {
+    margin: auto;
+    justify-content: center;
+    background-image: url('images/1130830_28577.gif');
     background-repeat: no-repeat;
     background-position: center;
     background-blend-mode: screen;
 }
+
+/** RESPONSIVE CSS **/
+/** IPAD **/
+@media (max-width: 992px) {
+    
+}
+
+/** PHONE **/
+@media (max-width: 768px) {
