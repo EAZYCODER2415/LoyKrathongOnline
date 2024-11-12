@@ -8,7 +8,7 @@ section.top {
     background-image: url('/images/wallpaper.png');
     background-position: center;
     background-blend-mode: screen;
-    padding-bottom: 75vh;
+    padding-bottom: 55vh;
     background-repeat: stretch;
     background-attachment: fixed; 
     background-size: 100% 100%;
@@ -17,10 +17,10 @@ section.top {
 section.bottom {
     margin: 0;
     justify-content: center;
-    background-image: url('/images/water.gif');
+    background-image: url('/images/water2.gif');
     background-position: center;
     background-blend-mode: screen;
-    padding-bottom: 75vh;
+    padding-bottom: 45vh;
     background-repeat: stretch;
     background-attachment: fixed; 
     background-size: 100% 100%;
