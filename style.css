@@ -17,7 +17,7 @@ section.top {
 section.bottom {
     margin: 0;
     justify-content: center;
-    background-image: url('/images/water2.gif');
+    background-image: url('/images/');
     background-position: center;
     background-blend-mode: screen;
     padding-bottom: 45vh;
