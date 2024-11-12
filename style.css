@@ -2,25 +2,25 @@ body {
     margin: 0;
 }
 
-section.top {
+div.top {
     margin: 0;
     justify-content: center;
     background-image: url('/images/wallpaper.png');
     background-position: center;
     background-blend-mode: screen;
-    padding-bottom: 55vh;
+    padding-bottom: 50vh;
     background-repeat: stretch;
     background-attachment: fixed; 
     background-size: 100% 100%;
 }
 
-section.bottom {
+div.bottom {
     margin: 0;
     justify-content: center;
-    background-image: url('/images/water1.png');
+    background-image: url('/images/water2.png');
     background-position: center;
     background-blend-mode: screen;
-    padding-bottom: 45vh;
+    padding-bottom: 50vh;
     background-repeat: stretch;
     background-attachment: fixed; 
     background-size: 100% 100%;
