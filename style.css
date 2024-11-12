@@ -1,12 +1,29 @@
-body {}
+body {
+    margin: 0;
+}
 
-.river-background {
-    margin: auto;
+section.top {
+    margin: 0;
     justify-content: center;
-    background-image: url('images/1130830_28577.gif');
-    background-repeat: no-repeat;
+    background-image: url('/images/wallpaper.png');
     background-position: center;
     background-blend-mode: screen;
+    padding-bottom: 75vh;
+    background-repeat: stretch;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+}
+
+section.bottom {
+    margin: 0;
+    justify-content: center;
+    background-image: url('/images/water.gif');
+    background-position: center;
+    background-blend-mode: screen;
+    padding-bottom: 75vh;
+    background-repeat: stretch;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
 }
 
 /** RESPONSIVE CSS **/
@@ -16,4 +33,4 @@ body {}
 }
 
 /** PHONE **/
-@media (max-width: 768px) {
+@media (max-width: 768px) {}
