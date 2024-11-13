@@ -5,18 +5,25 @@ body {
 main {
     opacity: 1;
     transform: none;
+    position: fixed;
+    inset: 0;
+    display: flex;
+    height: screen;
+    flex: column;
+    justify-items: center;
+    overflow: hidden;
 }
 
 div.background {
-    width: full;
+    width: 100%;
     height: 100vh;
     position: relative;
-    overflow: hidden;
     display: flex;
+    flex: 1;
     justify-items: center;
     justify-content: center;
-    background-image: url('/images/water2.png');
-    background-position: left center;
+    background-image: url('/images/river_bg.png');
+    background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed; 
     background-size: 100% 100%;
@@ -26,19 +33,22 @@ div.top {
     position: absolute;
     top: 0;
     left: 0;
-    width: full;
-    height: 55vh;
-    background-image: url('/images/wallpaper.png');
-    background-position: left center;
+    margin: 0;
+    width: 100%;
+    height: 57vh;
+    background-image: url('images/skyline.png');
     background-repeat: no-repeat;
-    background-attachment: fixed; 
-    background-size: 100% 100%;
+    background-position: bottom 100%;
+    background-attachment: fixed;
+    background-size: 100% 57%;
+    z-index: 0;
+    border: 1px solid black;
 }
 
 div.bottom {
     position: absolute;
     bottom: 0;
-    width: full;
+    width: 100%;
     height: 0.5;
     transform: translateY(5) translateZ(11);
 }
