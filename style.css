@@ -1,17 +1,22 @@
 body {
     margin: 0;
+    overflow: hidden;
+}
+
+.background {
+    display: flex;
 }
 
 div.top {
     margin: 0;
     justify-content: center;
     background-image: url('/images/wallpaper.png');
-    background-position: center;
+    background-position: bottom;
     background-blend-mode: screen;
-    padding-bottom: 50vh;
     background-repeat: stretch;
     background-attachment: fixed; 
     background-size: 100% 100%;
+    padding-bottom: 55vh;
 }
 
 div.bottom {
@@ -20,17 +25,15 @@ div.bottom {
     background-image: url('/images/water2.png');
     background-position: center;
     background-blend-mode: screen;
-    padding-bottom: 50vh;
     background-repeat: stretch;
     background-attachment: fixed; 
     background-size: 100% 100%;
+    padding-bottom: 25vh;
 }
 
 /** RESPONSIVE CSS **/
 /** IPAD **/
-@media (max-width: 992px) {
-    
-}
+@media (max-width: 992px) {}
 
 /** PHONE **/
 @media (max-width: 768px) {}
