@@ -92,4 +92,11 @@ change top background scale as dimensions change, then bg position **/
 }
 
 /** PHONE **/
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+    div.moon {
+        width: 8em;
+        height: 8em;
+        right: 25px;
+        top: 30px;
+    }
+}
