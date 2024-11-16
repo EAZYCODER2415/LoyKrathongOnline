@@ -3,30 +3,76 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Pridi" rel="stylesheet">
         <link href="style.css" rel="stylesheet">
         <title>Online Loy Krathong 2024</title>
+        <script>
+            let int = 0;
+
+            function releaseLantern() {
+                int++;
+                var max = 1000;
+                var min = -225;
+                var randomX = Math.floor(Math.random() * (max - min) ) + min;
+                document.body.innerHTML += `<div class="lantern" id="${int}" style="left: ${randomX}px"><img src="https://pngimg.com/d/sky_lantern_PNG26.png" alt="lantern"></div>`;
+                let lantern = document.getElementById(int);
+                var topOff = 615;
+                lantern.style.top = `${topOff}px`;
+                /**set interval function**/
+                topOff--;
+                let MS = 50;
+                setInterval(function() {
+                    lantern.style.top = `${topOff}px`;
+                    topOff -= 20;
+                    MS -= 20;
+                }, MS);
+            }
+        </script>
     </head>
     <body>
         <main>
-            <!-- Overall background-->
             <div class="background">
-                <div id="contact-buttons"></div> <!--Contact Buttons-->
-                <div id="start-button"></div> <!--Create Krathong button-->
+                <div id="contact-buttons"></div> <!-- Toolbar (copyright, email, language change) -->
+                <div class="start-buttons">
+                    <div class="lantern-button"><button onclick="releaseLantern()">Release Lantern</button></div>
+                    <div class="krathong-button"><button>Create Krathong</button></div>
+                </div>
                 <div class="top">
                     <div class="moon">
                         <img alt="moon" src="/images/moon.png">
                     </div>
                     <div class="title-group">
-                        <!-- div for title -->
-                        <!-- div for stats -->
+                        <div class="title">
+                            <img src="https://png.pngtree.com/png-vector/20221106/ourmid/pngtree-loy-krathong-festival-calligraphy-lotus-flower-full-moon-lantern-creative-decorations-png-image_6417331.png" alt="Loy Krathong Festival Font PNG, 10+ Loy Krathong Festival Text Effect PSD  Download"/>
+                        </div>
+                        <div class="stats">
+                            <h1>0 lanterns released, </h1>
+                            <h1>0 krathongs created</h1>
+                        </div>
                     </div>
-                </div> <!-- City background must not resize-->
-                <!-- All elements have absolute or fixed position except backgrounds -->
-                <div class="bottom"></div>
-                <!-- div for krathong movement lanes -->
-                <!-- div for bridge -->
+                </div>
+                <div class="bottom">
+                    <div class="lanes">
+                        <div id="lane-a" class="lane-a"></div>
+                        <div id="lane-b" class="lane-b"></div>
+                        <div id="lane-c" class="lane-c"></div>
+                    </div>
+                    <div class="bridge">
+                        <img src="/images/bridge.png" alt="bridge">
+                    </div>
+                    <div class="decor">
+                        <img src="/images/lotus1.png" alt="decor" style="left: 25px;">
+                        <img src="/images/cattail.png" alt="decor" style="left: 175px;">
+                        <img src="/images/lotus1.png" alt="decor" style="left: 325px;">
+                        <img src="/images/cattail.png" alt="decor" style="right: 1px;">
+                        <img src="/images/lotus1.png" alt="decor" style="right: 140px;">
+                        <img src="/images/lotus1.png" alt="decor" style="right: 315px;">
+                    </div>
+                </div>
             </div>
         </main>
         <!-- JavaScript scripts placed right here -->
+        <!-- Krathong spawn script -->
+        <!-- Stats script-->
     </body>
 </html>
