@@ -7,34 +7,86 @@
         <link href="style.css" rel="stylesheet">
         <title>Online Loy Krathong 2024</title>
         <script>
-            let int = 0;
+            let int = JSON.parse(localStorage.getItem("int")) || 0;
+            let array = JSON.parse(localStorage.getItem("array")) || [];
+            let MS = 25;
+
+            window.onload = function() {
+                let stats1 = document.getElementById("krathong-stats");
+                stats1.innerHTML = `${int} lanterns released, `;
+            }
+
+            class lanternClone {
+                constructor(IDnumber, topOff) {
+                    this.IDnumber = IDnumber;
+                    this.topOff = topOff;
+                }
+
+                decrease_topOff() {
+                    this.topOff -= 10;
+                }
+            }
+
+            function makeLanternWish() {
+                /** add modal in front of user **/
+                var object = document.getElementById("lantern-form");
+                object.style.display = "block";
+                var object2 = document.getElementById("overlay");
+                object2.style.display = "block";
+                /** let form include name and wish**/
+                /** include confirmation button that closes the form and executes releaseLantern() **/
+            }
+
+            function hide_form() {
+                var object = document.getElementById("lantern-form");
+                object.style.display = "none";
+                var object2 = document.getElementById("overlay");
+                object2.style.display = "none";
+            }
 
             function releaseLantern() {
+                var object = document.getElementById("lantern-form");
+                object.style.display = "none";
+                var object2 = document.getElementById("overlay");
+                object2.style.display = "none";
                 int++;
-                var max = 1000;
-                var min = -225;
+                var max = 75;
+                var min = -25;
                 var randomX = Math.floor(Math.random() * (max - min) ) + min;
-                document.body.innerHTML += `<div class="lantern" id="${int}" style="left: ${randomX}px"><img src="https://pngimg.com/d/sky_lantern_PNG26.png" alt="lantern"></div>`;
+                var input1 = document.getElementById("name");
+                var input2 = document.getElementById("wish-desc");
+                document.body.innerHTML += `<div class="lantern" id="${int}"style="left: 50%"><img src="https://pngimg.com/d/sky_lantern_PNG26.png" alt="lantern"><div class="wish"><h2>${input1.value}</h2><p>${input2.value}</p></div></div>`;
                 let lantern = document.getElementById(int);
                 var topOff = 615;
                 lantern.style.top = `${topOff}px`;
-                /**set interval function**/
-                topOff--;
-                let MS = 50;
-                setInterval(function() {
-                    lantern.style.top = `${topOff}px`;
-                    topOff -= 20;
-                    MS -= 20;
-                }, MS);
+                newObject = new lanternClone(int, topOff);
+                newObject.decrease_topOff();
+                array.push(newObject);
+                array.forEach(function(item) {
+                    setInterval(function() {
+                        object = document.getElementById(item.IDnumber);
+                        object.style.top = `${item.topOff}px`;
+                        item.decrease_topOff();
+                        MS = MS;
+                    }, MS);
+                });
+                let stats1 = document.getElementById("krathong-stats");
+                stats1.innerHTML = `${int} lanterns released, `;
+                localStorage.setItem("int", int);
+                localStorage.setItem("array", JSON.stringify(array));
             }
         </script>
     </head>
     <body>
         <main>
             <div class="background">
-                <div id="contact-buttons"></div> <!-- Toolbar (copyright, email, language change) -->
+                <div id="contact-buttons">
+                    <a onclick="openCopyright()"></a>
+                    <a href="mailto:thames2415@gmail.com"></a>
+                    <a href="link to same website but language in thai"></a>
+                </div> <!-- Toolbar (copyright, email, language change) -->
                 <div class="start-buttons">
-                    <div class="lantern-button"><button onclick="releaseLantern()">Release Lantern</button></div>
+                    <div class="lantern-button"><button onclick="makeLanternWish()">Release Lantern</button></div>
                     <div class="krathong-button"><button>Create Krathong</button></div>
                 </div>
                 <div class="top">
@@ -46,7 +98,7 @@
                             <img src="https://png.pngtree.com/png-vector/20221106/ourmid/pngtree-loy-krathong-festival-calligraphy-lotus-flower-full-moon-lantern-creative-decorations-png-image_6417331.png" alt="Loy Krathong Festival Font PNG, 10+ Loy Krathong Festival Text Effect PSD  Download"/>
                         </div>
                         <div class="stats">
-                            <h1>0 lanterns released, </h1>
+                            <h1 id="krathong-stats">0 lanterns released, </h1>
                             <h1>0 krathongs created</h1>
                         </div>
                     </div>
@@ -71,8 +123,19 @@
                 </div>
             </div>
         </main>
-        <!-- JavaScript scripts placed right here -->
-        <!-- Krathong spawn script -->
-        <!-- Stats script-->
+        <div id="lantern-form" class="lantern-form">
+            <h1>Make your wish come true!!</h1>
+            <p>Preserve traditional Thai culture without having to waste any resources!!</p>
+            <div class="form">
+                <form onsubmit='releaseLantern()' method="POST">
+                    <input type="text" name="Name" id="name" placeholder="Name" required>
+                    <textarea rows="20" cols="54" name="wish-desc" id="wish-desc" placeholder="State your wish!" required="true"></textarea>
+                    <input type="submit" value="Submit">
+                </form>
+                <button onclick="hide_form()">Back</button>
+            </div>
+        </div>
+        <div id="overlay"></div>
+        <!-- Audio player (open/close sound)-->
     </body>
 </html>
