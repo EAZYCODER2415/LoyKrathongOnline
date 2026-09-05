@@ -160,9 +160,9 @@ div.start-buttons button:hover {
     scale: 1.1;
 }
 
-div.lantern-button button {
+.lantern-button {
     padding: 20px;
-    border-radius: 15%;
+    border-radius: 50%;
     font-size: 20px;
     font-family: 'Pridi';
     cursor: pointer;
@@ -171,16 +171,16 @@ div.lantern-button button {
     transition: ease-in-out 0.25s;
 }
 
-div.krathong-button button {
+.krathong-button {
     margin-top: 25px;
     padding: 20px;
-    border-radius: 15%;
+    border-radius: 50%;
     font-size: 20px;
     font-family: 'Pridi';
     cursor: pointer;
     background-color: #349c11;
     font-weight: bold;
-    transition: ease-in-out 0.255s;
+    transition: ease-in-out 0.25s;
 }
 
 div.lantern {
