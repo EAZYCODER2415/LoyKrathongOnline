@@ -151,9 +151,12 @@ div.stats h1 {
 div.start-buttons {
     position: fixed;
     bottom: 10px;
-    z-index: 3;
+    left: 0;
+    right: 0;
     display: flex;
+    justify-content: center;
     gap: 10px;
+    z-index: 3;
 }
 
 div.start-buttons button:hover {
@@ -161,32 +164,41 @@ div.start-buttons button:hover {
 }
 
 .lantern-button {
-    padding: 20px;
-    border-radius: 50%;
-    font-size: 20px;
-    font-family: 'Pridi';
+    width: 140px;
+    height: 140px;
+    border-radius: 12px;
+    font-size: clamp(16px, 4vw, 20px);
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     cursor: pointer;
     background-color: #edd02b;
-    font-weight: bold;
+    font-weight: 600;
     transition: ease-in-out 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .krathong-button {
-    margin-top: 25px;
-    padding: 20px;
-    border-radius: 50%;
-    font-size: 20px;
-    font-family: 'Pridi';
+    width: 140px;
+    height: 140px;
+    border-radius: 12px;
+    margin-top: 0;
+    font-size: clamp(16px, 4vw, 20px);
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     cursor: pointer;
     background-color: #349c11;
-    font-weight: bold;
+    font-weight: 600;
     transition: ease-in-out 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 div.lantern {
     position: fixed;
-    width: 700px;
-    height: 437.75px;
+    width: 60vw;
+    max-width: 350px;
+    height: auto;
     z-index: 0.5;
 }
 
@@ -296,6 +308,67 @@ div.wish p {
     margin-top: 0;
     font-family: 'Pridi';
     text-align: center;
+}
+
+/* Tablet adjustments */
+@media (max-width: 992px) {
+    .lantern-button,
+    .krathong-button {
+        width: 120px;
+        height: 120px;
+        font-size: clamp(14px, 4vw, 18px);
+    }
+    div.start-buttons {
+        gap: 8px;
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    div.start-buttons {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    .lantern-button,
+    .krathong-button {
+        width: 100px;
+        height: 100px;
+        font-size: clamp(12px, 4vw, 16px);
+    }
+    /* Move stats to top for better visibility */
+    div.stats {
+        position: fixed;
+        top: 10px;
+        left: 0;
+        right: 0;
+        text-align: center;
+    }
+    div.stats h1 {
+        font-size: clamp(14px, 4vw, 18px);
+    }
+    /* Adjust lantern container to avoid overlap */
+    div.lanterns-container {
+        margin-bottom: 80px; /* space for buttons */
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+    .lantern-button,
+    .krathong-button {
+        width: 80px;
+        height: 80px;
+    }
+    div.start-buttons {
+        gap: 10px;
+    }
+    div.stats {
+        top: 5px;
+    }
+    div.stats h1 {
+        font-size: clamp(12px, 4vw, 16px);
+    }
 }
 
 @keyframes glow {
