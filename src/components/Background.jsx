@@ -16,13 +16,6 @@ const Background = () => {
           <div id="lane-b" className="lane-b"></div>
           <div id="lane-c" className="lane-c"></div>
         </div>
-        <div className="bridge">
-          <img
-            className="bridge"
-            src={`${imageBase}bridge.png`}
-            alt="bridge"
-          />
-        </div>
         <div className="decor" aria-hidden="true">
           <img className="decor-lotus lotus-one" src={`${imageBase}lotus1.png`} alt="" />
           <img className="decor-cattail cattail-one" src={`${imageBase}cattail.png`} alt="" />

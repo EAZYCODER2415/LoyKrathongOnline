@@ -1,30 +1,24 @@
 import React from 'react';
 
-const LanternForm = ({ showForm, onToggleForm, formData, onFormChange, onSubmit, labels }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const KrathongForm = ({ formData, onFormChange, onSubmit, onToggleForm, labels }) => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     onSubmit(formData.name, formData.wish);
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    onFormChange(prev => ({
-      ...prev,
-      [name]: value
-    }));
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    onFormChange(previous => ({ ...previous, [name]: value }));
   };
-
-  if (!showForm) return null;
 
   return (
     <form onSubmit={handleSubmit} className="form">
-      <h1>{labels.lanternFormTitle}</h1>
-      <p>{labels.lanternFormIntro}</p>
+      <h1>{labels.krathongFormTitle}</h1>
+      <p>{labels.krathongFormIntro}</p>
       <div>
         <input
           type="text"
           name="name"
-          id="name"
           placeholder={labels.namePlaceholder}
           required
           value={formData.name || ''}
@@ -33,13 +27,12 @@ const LanternForm = ({ showForm, onToggleForm, formData, onFormChange, onSubmit,
         <textarea
           rows="6"
           name="wish"
-          id="wish-desc"
           placeholder={labels.wishPlaceholder}
           required
           value={formData.wish || ''}
           onChange={handleInputChange}
         />
-        <input type="submit" value={labels.lanternSubmit} />
+        <input type="submit" value={labels.krathongSubmit} />
       </div>
       <button className="form-cancel" type="button" onClick={onToggleForm}>
         {labels.cancel}
@@ -48,4 +41,4 @@ const LanternForm = ({ showForm, onToggleForm, formData, onFormChange, onSubmit,
   );
 };
 
-export default LanternForm;
+export default KrathongForm;

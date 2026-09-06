@@ -8,6 +8,8 @@ const Lantern = ({ lantern, onFadeComplete, onLanternClick }) => {
     let animationFrame;
     let fadeTimeout;
     let fadeInTimeout;
+    let glowTimeout;
+    let ascentTimeout;
     let isFading = false;
     const isLooping = lantern.phase === 'looping';
 
@@ -16,6 +18,18 @@ const Lantern = ({ lantern, onFadeComplete, onLanternClick }) => {
       fadeInTimeout = window.setTimeout(() => {
         lanternRef.current?.classList.remove('is-fading-in');
       }, 700);
+    }
+
+    if (!isLooping && lanternRef.current) {
+      lanternRef.current.classList.add('is-large-entering');
+      glowTimeout = window.setTimeout(() => {
+        lanternRef.current?.classList.remove('is-large-entering');
+        lanternRef.current?.classList.add('is-large-glowing');
+      }, 700);
+      ascentTimeout = window.setTimeout(() => {
+        lanternRef.current?.classList.remove('is-large-glowing');
+        animationFrame = requestAnimationFrame(animateLantern);
+      }, 1500);
     }
 
     const animateLantern = () => {
@@ -49,12 +63,16 @@ const Lantern = ({ lantern, onFadeComplete, onLanternClick }) => {
       animationFrame = requestAnimationFrame(animateLantern);
     };
 
-    animationFrame = requestAnimationFrame(animateLantern);
+    if (isLooping) {
+      animationFrame = requestAnimationFrame(animateLantern);
+    }
 
     return () => {
       cancelAnimationFrame(animationFrame);
       window.clearTimeout(fadeTimeout);
       window.clearTimeout(fadeInTimeout);
+      window.clearTimeout(glowTimeout);
+      window.clearTimeout(ascentTimeout);
     };
   }, [lantern, onFadeComplete]);
 
@@ -79,7 +97,7 @@ const Lantern = ({ lantern, onFadeComplete, onLanternClick }) => {
       style={{
         left: `${lantern.xPosition ?? 50}%`,
         position: 'fixed',
-        zIndex: 0.5,
+        zIndex: lantern.phase === 'large' ? 20 : 3,
         top: `${lantern.topOff}px`,
         transform: 'translateX(-50%)'
       }}
