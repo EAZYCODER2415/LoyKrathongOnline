@@ -230,36 +230,125 @@ div.lantern {
     z-index: 3;
     width: min(42vw, 300px);
     height: auto;
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: help;
     filter: drop-shadow(0 8px 18px rgba(251, 173, 40, 0.2));
+    transition: opacity 700ms ease-out, filter 700ms ease-out;
 }
+
+div.lantern.is-large { width: min(42vw, 300px); }
+div.lantern.is-looping {
+    z-index: 6;
+    width: clamp(34px, 5vw, 68px);
+    cursor: pointer;
+    filter: drop-shadow(0 3px 10px rgba(251, 173, 40, 0.28));
+    transition: opacity 700ms ease, filter 180ms ease, transform 180ms ease;
+}
+
+div.lantern.is-looping:hover,
+div.lantern.is-looping:focus-visible {
+    filter: brightness(1.8) drop-shadow(0 0 8px rgba(255, 255, 255, 0.98)) drop-shadow(0 0 22px rgba(255, 255, 255, 0.9));
+}
+
+div.lantern.is-fading { opacity: 0; filter: drop-shadow(0 0 0 rgba(251, 173, 40, 0)); }
+div.lantern.is-fading-out { opacity: 0; filter: drop-shadow(0 0 0 rgba(251, 173, 40, 0)); }
+div.lantern.is-fading-in { animation: lantern-fade-in 700ms ease-out both; }
 
 div.lantern img { width: 100%; height: auto; }
 
 div.wish {
     position: absolute;
-    bottom: 7%;
+    bottom: 5%;
     left: 50%;
-    min-width: 116px;
-    max-width: 220px;
-    padding: 7px 12px;
-    transform: translateX(-50%);
+    width: max-content;
+    min-width: 150px;
+    max-width: min(360px, 75vw);
+    padding: 10px 14px;
+    transform: translate(-50%, 8px);
     border: 1px solid rgba(255, 249, 230, 0.16);
     border-radius: 8px;
     background: rgba(20, 28, 29, 0.7);
     color: #fff8e9;
     text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+}
+
+div.lantern.is-large:hover .wish,
+div.lantern.is-large:focus-visible .wish {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
 }
 
 div.wish h2, div.wish p {
-    overflow: hidden;
     margin: 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
+    white-space: normal;
 }
 
-div.wish h2 { font-family: 'Outfit', sans-serif; font-size: 0.75rem; }
-div.wish p { margin-top: 2px; color: rgba(255, 248, 233, 0.68); font-size: 0.66rem; }
+div.wish h2 { font-family: 'Outfit', sans-serif; font-size: 0.82rem; }
+div.wish p { margin-top: 5px; color: rgba(255, 248, 233, 0.78); font-size: 0.74rem; line-height: 1.35; }
+
+@keyframes lantern-fade-in {
+    from { opacity: 0; filter: drop-shadow(0 0 0 rgba(251, 173, 40, 0)); }
+    to { opacity: 1; filter: drop-shadow(0 3px 10px rgba(251, 173, 40, 0.28)); }
+}
+
+.lantern-detail-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 12;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(2, 14, 20, 0.72);
+    backdrop-filter: blur(10px);
+}
+
+.lantern-detail-modal {
+    width: min(100%, 430px);
+    padding: clamp(26px, 5vw, 42px);
+    border: 1px solid rgba(255, 242, 205, 0.24);
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(20, 70, 69, 0.98), rgba(8, 38, 48, 0.98));
+    color: #fff8e9;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42), 0 0 34px rgba(245, 190, 87, 0.16);
+}
+
+.detail-kicker {
+    color: #f5be57;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.lantern-detail-modal h2 {
+    margin: 12px 0 14px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 2rem;
+}
+
+.lantern-detail-modal p {
+    margin: 0;
+    color: rgba(255, 248, 233, 0.82);
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.lantern-detail-modal button {
+    margin-top: 28px;
+    padding: 11px 20px;
+    border: 0;
+    border-radius: 9px;
+    background: #f5be57;
+    color: #17313a;
+    font-weight: 700;
+    cursor: pointer;
+}
 
 .ui-controls {
     position: relative;

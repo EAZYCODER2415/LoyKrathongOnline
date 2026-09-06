@@ -2,21 +2,40 @@ import React from 'react';
 import Background from './components/Background.jsx';
 import Lantern from './components/Lantern.jsx';
 import LanternForm from './components/LanternForm.jsx';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 function App() {
   const [lanterns, setLanterns] = useState([]);
   const [lanternCount, setLanternCount] = useState(0);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({ name: '', wish: '' });
+  const [selectedLantern, setSelectedLantern] = useState(null);
+
+  const handleFadeComplete = useCallback((id) => {
+    setLanterns(previousLanterns => previousLanterns.map(item => (
+      item.id === id ? {
+        ...item,
+        phase: 'looping',
+        topOff: Math.round(window.innerHeight * 0.42),
+        hidden: false
+      } : item
+    )));
+  }, []);
 
   // Load from localStorage on initial render
   useEffect(() => {
     const savedCount = parseInt(localStorage.getItem('lanternCount')) || 0;
     const savedLanterns = JSON.parse(localStorage.getItem('lanterns')) || [];
+    const loopingLanterns = savedLanterns.map(lantern => ({
+      ...lantern,
+      phase: 'looping',
+      topOff: Math.round(window.innerHeight * 0.42),
+      hidden: false,
+      xPosition: lantern.xPosition ?? Math.floor(Math.random() * 70) + 15
+    }));
 
     setLanternCount(savedCount);
-    setLanterns(savedLanterns);
+    setLanterns(loopingLanterns);
   }, []);
 
   // Save to localStorage whenever lanterns or count change
@@ -31,11 +50,13 @@ function App() {
       id: newId,
       name: name,
       wish: wish,
-      topOff: 615, // Starting position
-      animationFrame: null
+      topOff: window.innerHeight + 40,
+      xPosition: Math.floor(Math.random() * 70) + 15,
+      phase: 'large',
+      hidden: false
     };
 
-    setLanterns([...lanterns, newLantern]);
+    setLanterns(previousLanterns => [...previousLanterns, newLantern]);
     setLanternCount(newId);
     setShowForm(false);
     setFormData({ name: '', wish: '' });
@@ -67,8 +88,13 @@ function App() {
         </header>
 
         <div className="lanterns-container">
-          {lanterns.map(lantern => (
-            <Lantern key={lantern.id} lantern={lantern} />
+          {lanterns.filter(lantern => !lantern.hidden).map(lantern => (
+            <Lantern
+              key={lantern.id}
+              lantern={lantern}
+              onFadeComplete={handleFadeComplete}
+              onLanternClick={setSelectedLantern}
+            />
           ))}
         </div>
 
@@ -102,6 +128,23 @@ function App() {
                 onSubmit={handleReleaseLantern}
               />
             </div>
+          </div>
+        )}
+
+        {selectedLantern && (
+          <div className="lantern-detail-overlay" onClick={() => setSelectedLantern(null)}>
+            <section
+              className="lantern-detail-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="lantern-detail-title"
+              onClick={event => event.stopPropagation()}
+            >
+              <div className="detail-kicker">A wish carried by light</div>
+              <h2 id="lantern-detail-title">{selectedLantern.name}</h2>
+              <p>{selectedLantern.wish}</p>
+              <button type="button" onClick={() => setSelectedLantern(null)}>Close</button>
+            </section>
           </div>
         )}
       </main>

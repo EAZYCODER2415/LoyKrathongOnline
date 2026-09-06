@@ -1,47 +1,87 @@
 import React, { useEffect, useRef } from 'react';
 
-const Lantern = ({ lantern }) => {
+const Lantern = ({ lantern, onFadeComplete, onLanternClick }) => {
   const lanternRef = useRef(null);
 
   useEffect(() => {
+    let currentTop = lantern.topOff;
+    let animationFrame;
+    let fadeTimeout;
+    let fadeInTimeout;
+    let isFading = false;
+    const isLooping = lantern.phase === 'looping';
+
+    if (isLooping && lanternRef.current) {
+      lanternRef.current.classList.add('is-fading-in');
+      fadeInTimeout = window.setTimeout(() => {
+        lanternRef.current?.classList.remove('is-fading-in');
+      }, 700);
+    }
+
     const animateLantern = () => {
       if (!lanternRef.current) return;
 
-      // Update position
-      lantern.topOff -= 10; // Decrease by 10px each frame (adjust speed as needed)
-      lanternRef.current.style.top = `${lantern.topOff}px`;
-
-      // If lantern goes off screen (top < -100), we can remove it or reset?
-      // In the original, they just keep going up and are never removed from the array.
-      // We'll keep it in the array but stop animating when off screen to save resources.
-      if (lantern.topOff < -100) {
-        cancelAnimationFrame(lantern.animationFrame);
+      if (isLooping && currentTop <= 0 && !isFading) {
+        isFading = true;
+        lanternRef.current.classList.add('is-fading-out');
+        fadeTimeout = window.setTimeout(() => {
+          currentTop = window.innerHeight * 0.42;
+          lanternRef.current?.style.setProperty('top', `${currentTop}px`);
+          lanternRef.current?.style.setProperty('left', `${Math.floor(Math.random() * 70) + 15}%`);
+          lanternRef.current?.classList.remove('is-fading-out');
+          lanternRef.current?.classList.add('is-fading-in');
+          window.setTimeout(() => lanternRef.current?.classList.remove('is-fading-in'), 700);
+          isFading = false;
+          animationFrame = requestAnimationFrame(animateLantern);
+        }, 700);
         return;
       }
 
-      // Request next frame
-      lantern.animationFrame = requestAnimationFrame(animateLantern);
+      currentTop -= isLooping ? 0.35 : 0.8;
+      lanternRef.current.style.top = `${currentTop}px`;
+
+      if (!isLooping && currentTop < -100) {
+        lanternRef.current.classList.add('is-fading');
+        fadeTimeout = window.setTimeout(() => onFadeComplete(lantern.id), 700);
+        return;
+      }
+
+      animationFrame = requestAnimationFrame(animateLantern);
     };
 
-    // Start animation
-    lantern.animationFrame = requestAnimationFrame(animateLantern);
+    animationFrame = requestAnimationFrame(animateLantern);
 
-    // Cleanup on unmount or before next animation frame if lantern changes
     return () => {
-      cancelAnimationFrame(lantern.animationFrame);
+      cancelAnimationFrame(animationFrame);
+      window.clearTimeout(fadeTimeout);
+      window.clearTimeout(fadeInTimeout);
     };
-  }, [lantern]); // Re-run effect if lantern changes (though we don't expect it to)
+  }, [lantern, onFadeComplete]);
+
+  const handleKeyDown = (event) => {
+    if (lantern.phase !== 'looping') return;
+
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      onLanternClick(lantern);
+    }
+  };
 
   return (
     <div
-      className="lantern"
+      className={`lantern ${lantern.phase === 'looping' ? 'is-looping' : 'is-large'}`}
       ref={lanternRef}
+      tabIndex="0"
+      aria-label={`Lantern by ${lantern.name}`}
+      role={lantern.phase === 'looping' ? 'button' : undefined}
+      onClick={() => lantern.phase === 'looping' && onLanternClick(lantern)}
+      onKeyDown={handleKeyDown}
       style={{
-        left: '50%', // Original had left: 50% but then set via JS? In original: style="left: 50%"
+        left: `${lantern.xPosition ?? 50}%`,
         position: 'fixed',
         zIndex: 0.5,
-        top: `${lantern.topOff}px`, // Initial top set by state
-        transform: 'translateX(-50%)' // To center horizontally
+        top: `${lantern.topOff}px`,
+        transform: 'translateX(-50%)'
       }}
     >
       <img
