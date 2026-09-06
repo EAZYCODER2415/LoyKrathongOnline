@@ -49,6 +49,23 @@ function App() {
     <>
       <Background />
       <main className="app-container">
+        <header className="app-header">
+          <div className="eyebrow">A digital river of wishes</div>
+          <h1>Loy Krathong <span>Online</span></h1>
+          <p className="intro">Release a little light into the night and make a wish.</p>
+          <div className="stats" aria-label="Festival activity">
+            <div className="stat">
+              <strong>{lanternCount}</strong>
+              <span>lanterns released</span>
+            </div>
+            <div className="stat-divider" aria-hidden="true" />
+            <div className="stat">
+              <strong>0</strong>
+              <span>krathongs created</span>
+            </div>
+          </div>
+        </header>
+
         <div className="lanterns-container">
           {lanterns.map(lantern => (
             <Lantern key={lantern.id} lantern={lantern} />
@@ -61,19 +78,16 @@ function App() {
               onClick={handleToggleForm}
               className="lantern-button"
             >
-              Release Lantern
+              <span className="button-icon" aria-hidden="true">↑</span>
+              <span>Release a lantern</span>
             </button>
             <button
               className="krathong-button"
               disabled // Krathong feature not implemented yet
             >
-              Create Krathong
+              <span className="button-icon" aria-hidden="true">✦</span>
+              <span>Create a krathong</span>
             </button>
-          </div>
-
-          <div className="stats">
-            <h1 id="krathong-stats">{lanternCount} lanterns released, </h1>
-            <h1>0 krathongs created</h1>
           </div>
         </div>
 

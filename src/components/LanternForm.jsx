@@ -18,8 +18,8 @@ const LanternForm = ({ showForm, onToggleForm, formData, onFormChange, onSubmit 
 
   return (
     <form onSubmit={handleSubmit} className="form">
-      <h1>Make your wish come true!!</h1>
-      <p>Preserve traditional Thai culture without having to waste any resources!!</p>
+      <h1>Send a wish into the night</h1>
+      <p>Your light will join the river above.</p>
       <div>
         <input
           type="text"
@@ -31,19 +31,18 @@ const LanternForm = ({ showForm, onToggleForm, formData, onFormChange, onSubmit 
           onChange={handleInputChange}
         />
         <textarea
-          rows="20"
-          cols="54"
-          name="wish-desc"
+          rows="6"
+          name="wish"
           id="wish-desc"
           placeholder="State your wish!"
           required
           value={formData.wish || ''}
           onChange={handleInputChange}
         />
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Release lantern" />
       </div>
-      <button type="button" onClick={onToggleForm}>
-        Back
+      <button className="form-cancel" type="button" onClick={onToggleForm}>
+        Cancel
       </button>
     </form>
   );

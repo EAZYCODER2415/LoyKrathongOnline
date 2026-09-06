@@ -1,23 +1,13 @@
 import React from 'react';
 
 const Background = () => {
+  const imageBase = '/dist/images/';
+
   return (
     <div className="background">
       <div className="top">
         <div className="moon">
-          <img alt="moon" src="/images/moon.png" />
-        </div>
-        <div className="title-group">
-          <div className="title">
-            <img
-              src="https://png.pngtree.com/png-vector/20221106/ourmid/pngtree-loy-krathong-festival-calligraphy-lotus-flower-full-moon-lantern-creative-decorations-png-image_6417331.png"
-              alt="Loy Krathong Festival Font PNG, 10+ Loy Krathong Festival Text Effect PSD  Download"
-            />
-          </div>
-          <div className="stats">
-            <h1 id="krathong-stats">0 lanterns released, </h1>
-            <h1>0 krathongs created</h1>
-          </div>
+          <img alt="moon" src={`${imageBase}moon.png`} />
         </div>
       </div>
       <div className="bottom">
@@ -29,17 +19,20 @@ const Background = () => {
         <div className="bridge">
           <img
             className="bridge"
-            src="/images/bridge.png"
+            src={`${imageBase}bridge.png`}
             alt="bridge"
           />
         </div>
-        <div className="decor">
-          <img src="/images/lotus1.png" alt="decor" style={{ left: '25px' }} />
-          <img src="/images/cattail.png" alt="decor" style={{ left: '175px' }} />
-          <img src="/images/lotus1.png" alt="decor" style={{ left: '325px' }} />
-          <img src="/images/cattail.png" alt="decor" style={{ right: '1px' }} />
-          <img src="/images/lotus1.png" alt="decor" style={{ right: '140px' }} />
-          <img src="/images/lotus1.png" alt="decor" style={{ right: '315px' }} />
+        <div className="decor" aria-hidden="true">
+          <img className="decor-lotus lotus-one" src={`${imageBase}lotus1.png`} alt="" />
+          <img className="decor-cattail cattail-one" src={`${imageBase}cattail.png`} alt="" />
+          <img className="decor-lotus lotus-two" src={`${imageBase}lotus1.png`} alt="" />
+          <img className="decor-cattail cattail-two" src={`${imageBase}cattail.png`} alt="" />
+          <img className="decor-lotus lotus-three" src={`${imageBase}lotus1.png`} alt="" />
+          <img className="decor-cattail cattail-three" src={`${imageBase}cattail.png`} alt="" />
+          <img className="decor-lotus lotus-four" src={`${imageBase}lotus1.png`} alt="" />
+          <img className="decor-cattail cattail-four" src={`${imageBase}cattail.png`} alt="" />
+          <img className="decor-lotus lotus-five" src={`${imageBase}lotus1.png`} alt="" />
         </div>
       </div>
     </div>

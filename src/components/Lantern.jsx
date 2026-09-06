@@ -39,8 +39,6 @@ const Lantern = ({ lantern }) => {
       style={{
         left: '50%', // Original had left: 50% but then set via JS? In original: style="left: 50%"
         position: 'fixed',
-        width: '700px',
-        height: '437.75px',
         zIndex: 0.5,
         top: `${lantern.topOff}px`, // Initial top set by state
         transform: 'translateX(-50%)' // To center horizontally
